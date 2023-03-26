@@ -1,0 +1,29 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- create:
+    - ~/Downloads
+    - ~/workspace
+    - ~/.config
+    - ~/.config/nvim
+    - ~/.ssh
+    - ~/.vim
+
+- link:
+    ~/.config/nvim/init.vim: vimrc
+    ~/.zshrc: zshrc
+    ~/.ssh/config: ssh_config
+    ~/.p10k.zsh: p10k.zsh
+    ~/.gitconfig: gitconfig
+
+- shell:
+    - sh -c "KEEP_ZSHRC=yes $(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    - nvim --headless -c PlugInstall -c qall
+    - git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    - git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    - git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    - git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
